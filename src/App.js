@@ -1,9 +1,34 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
 /// Modifica el componente para que se puedan agregar tareas
 
-class App extends Component {
-  render() {
+function App() {
+
+  const [tarea, guardarTarea] = useState({
+    nombre: ''
+  })
+
+  const {nombre} = tarea;
+
+  const [task, getTask] = useState([]);
+
+
+    const handleChange = e => {
+      guardarTarea({
+          [e.target.name] : e.target.value
+      })
+  }
+
+    const agregarTarea = (e) =>{
+      e.preventDefault();
+
+      getTask([...task, tarea.nombre]);
+
+      guardarTarea({
+        nombre: ''
+      });
+    }
+
     return (
       <div className="wrapper">
         <div className="list">
@@ -12,14 +37,19 @@ class App extends Component {
             <li>Sacar la ropa</li>
             <li>Hacer la cama</li>
             <li>Leer un rato</li>
+            { task.map((li)=><li>{li}</li>)}
           </ul>
-           <form>
-             <input type="text" id="new-task" placeholder="Ingresa una tarea y oprime Enter" />
+           <form
+            onSubmit={agregarTarea}
+           >
+             <input type="text" id="new-task" name="nombre" value={nombre} placeholder="Ingresa una tarea y oprime Enter"
+              onChange={handleChange}
+             />
            </form>
         </div>
       </div>
     )
-  }
+  
 }
 
 

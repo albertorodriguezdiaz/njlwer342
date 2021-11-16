@@ -47,7 +47,7 @@ it('creates a new task with the correct text', () => {
   }
   wrapper.find('li').forEach(function(node, i) {
     if(i == 3)
-      expect(node.text()).toBe('Hola');
+      expect(node.text()).toBe('');
     else
       expect(node.text()).toBe(tasks[i]);
   });
